@@ -1,0 +1,109 @@
+<div class="question-container" ng-class="{false: 'q-back', true: 'q-front'}[tel]">
+	<div class="question-wrapper" ng-class="{true: 'q-slide-down', false: ''}[custanim]">
+		<div class="question">
+			<!-- Question number -->
+			<div class="qnum-bg qnum-bg-outer">
+				<div class="qnum-bg-middle">
+					<div class="qnum-bg-inner">
+						<span class="qnum">{{ q.sequence }}</span>
+					</div>
+				</div>
+			</div>
+			<!-- Question name -->
+			<div class="qtitle-wrapper">
+				<span class="qtitle" ng-attr-lang="{{ tel && 'te' || 'en'}}">{{ tel && q.nameTelugu || q.name }}</span>
+			</div>
+		</div>
+		<div class="q-amount">
+			<img alt="rupee" class="rupee" src="css/images/rupee.png">
+			<div class="q-amount-seperator"></div>
+			<span
+				ng-class="{'drop-amount':q.showAnswer && ((q.selectedOption == 'a' && q.answer == 0) || (q.selectedOption == 'b' && q.answer == 1) || (q.selectedOption == 'c' && q.answer == 2) || (q.selectedOption == 'd' && q.answer == 3))}"
+				class="q-amount-content">{{ q.amount }}</span>
+		</div>
+	</div>
+	<div class="qo-con" ng-if="q.selectedOption && !q.showAnswer">
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	<div class="option-container"
+		ng-class="{'o-slide-up':custanim, 'o-admin':a.showActions && !q.selectedOption && !q.dual, 'option-selected-a':q.selectedOption == 'a', 'option-selected-b':q.selectedOption == 'b', 'option-selected-c':q.selectedOption == 'c', 'option-selected-d':q.selectedOption == 'd'}">
+		<div class="option-wrapper optionA" ng-click="sendCommand('a')" ng-switch on="getOptionStatus('a')"
+			ng-class="getOptionClasses('a')">
+			<!-- Correct option -->
+			<img class="option-bg" ng-switch-when="RIGHT" src="css/images/option_correct.png">
+			<!-- Correct option for host -->
+			<img class="option-bg" ng-switch-when="RIGHT_HOST" src="css/images/option_correct_host.png">
+			<!-- Wrong option selected -->
+			<img class="option-bg" ng-switch-when="WRONG_SELECTED" src="css/images/option_wrong.png">
+			<!-- Selected option -->
+			<img class="option-bg" ng-switch-when="SELECTED" src="css/images/option_selected.png">
+			<!-- default -->
+			<img class="option-bg" ng-switch-default src="css/images/option.png">
+
+			<div class="option">
+				<span class="option-head">A</span><span class="option-title" ng-attr-lang="{{ tel && 'te' || 'en'}}">{{ tel
+					&& q.optionATelugu || q.optionA }}</span>
+			</div>
+			<!-- <span class="wrong-denote">X</span> -->
+		</div>
+		<div class="option-wrapper optionB" ng-click="sendCommand('b')" ng-switch on="getOptionStatus('b')"
+			ng-class="getOptionClasses('b')">
+			<!-- Correct option -->
+			<img class="option-bg" ng-switch-when="RIGHT" src="css/images/option_correct.png">
+			<!-- Correct option for host -->
+			<img class="option-bg" ng-switch-when="RIGHT_HOST" src="css/images/option_correct_host.png">
+			<!-- Wrong option selected -->
+			<img class="option-bg" ng-switch-when="WRONG_SELECTED" src="css/images/option_wrong.png">
+			<!-- Selected option -->
+			<img class="option-bg" ng-switch-when="SELECTED" src="css/images/option_selected.png">
+			<!-- default -->
+			<img class="option-bg" ng-switch-default src="css/images/option.png">
+
+			<div class="option">
+				<span class="option-head">B</span><span class="option-title" ng-attr-lang="{{ tel && 'te' || 'en'}}">{{ tel
+					&& q.optionBTelugu || q.optionB }}</span>
+			</div>
+			<!-- <span class="wrong-denote">X</span> -->
+		</div>
+		<div class="option-wrapper optionC" ng-click="sendCommand('c')" ng-switch on="getOptionStatus('c')"
+			ng-class="getOptionClasses('c')">
+			<!-- Correct option -->
+			<img class="option-bg" ng-switch-when="RIGHT" src="css/images/option_correct.png">
+			<!-- Correct option for host -->
+			<img class="option-bg" ng-switch-when="RIGHT_HOST" src="css/images/option_correct_host.png">
+			<!-- Wrong option selected -->
+			<img class="option-bg" ng-switch-when="WRONG_SELECTED" src="css/images/option_wrong.png">
+			<!-- Selected option -->
+			<img class="option-bg" ng-switch-when="SELECTED" src="css/images/option_selected.png">
+			<!-- default -->
+			<img class="option-bg" ng-switch-default src="css/images/option.png">
+
+			<div class="option">
+				<span class="option-head">C</span><span class="option-title" ng-attr-lang="{{ tel && 'te' || 'en'}}">{{ tel
+					&& q.optionCTelugu || q.optionC }}</span>
+			</div>
+			<!-- <span class="wrong-denote">X</span> -->
+		</div>
+		<div class="option-wrapper optionD" ng-click="sendCommand('d')" ng-switch on="getOptionStatus('d')"
+			ng-class="getOptionClasses('d')">
+			<!-- Correct option -->
+			<img class="option-bg" ng-switch-when="RIGHT" src="css/images/option_correct.png">
+			<!-- Correct option for host -->
+			<img class="option-bg" ng-switch-when="RIGHT_HOST" src="css/images/option_correct_host.png">
+			<!-- Wrong option selected -->
+			<img class="option-bg" ng-switch-when="WRONG_SELECTED" src="css/images/option_wrong.png">
+			<!-- Selected option -->
+			<img class="option-bg" ng-switch-when="SELECTED" src="css/images/option_selected.png">
+			<!-- default -->
+			<img class="option-bg" ng-switch-default src="css/images/option.png">
+
+			<div class="option">
+				<span class="option-head">D</span><span class="option-title" ng-attr-lang="{{ tel && 'te' || 'en'}}">{{ tel
+					&& q.optionDTelugu || q.optionD }}</span>
+			</div>
+			<!-- <span class="wrong-denote">X</span> -->
+		</div>
+	</div>
+</div>

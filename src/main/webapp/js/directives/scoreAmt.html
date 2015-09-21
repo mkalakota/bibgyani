@@ -1,0 +1,15 @@
+<div class="score-wrapper score-opaque" ng-style="getStyle()"
+	ng-class="{'score-enabled':amount.answered, 'score-highlight': amount.sequence == question.sequence}" ng-switch on="amount.answered">
+	<img ng-switch-when="true" class="score-bg" alt="score background" src="css/images/amount.png">
+	<!-- Default image -->
+	<img ng-switch-default class="score-bg" alt="score background" src="css/images/amount_disabled.png">
+	<div class="score-content">
+		<span class="score-qnum" ng-if="amount.answered == true || amount.sequence == question.sequence">{{ amount.sequence }}</span>
+		<!-- Score amount -->
+		<span class="score-amount" ng-class="{'score-amount-challenge':amount.amount == 0}" ng-if="amount.answered == true">{{
+			amount.amount }}</span>
+		<!-- challenge image -->
+		<img ng-if="amount.answered == true && amount.amount == 0" class="score-challenge" alt="challenge"
+			src="css/images/lifeline_challenge.png">
+	</div>
+</div>

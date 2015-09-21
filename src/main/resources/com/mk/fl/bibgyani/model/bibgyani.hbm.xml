@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" package="com.mk.fl.bibgyani.model">
+	<class name="Question" table="QUESTION">
+		<id name="id" column="ID">
+			<generator class="identity" />
+		</id>
+		<property name="name" column="NAME" length="255" />
+		<property name="nameTelugu" column="NAME_TELUGU" length="255" />
+
+		<property name="optionA" column="OPTION_A" length="255" />
+		<property name="optionB" column="OPTION_B" length="255" />
+		<property name="optionC" column="OPTION_C" length="255" />
+		<property name="optionD" column="OPTION_D" length="255" />
+
+		<property name="optionATelugu" column="OPTION_A_TELUGU" length="255" />
+		<property name="optionBTelugu" column="OPTION_B_TELUGU" length="255" />
+		<property name="optionCTelugu" column="OPTION_C_TELUGU" length="255" />
+		<property name="optionDTelugu" column="OPTION_D_TELUGU" length="255" />
+
+		<property name="answer" column="ANSWER" />
+		<property name="level" column="LEVEL" />
+
+		<property name="amountExtraAt" column="AMOUNT_EXTRA_AT" />
+	</class>
+	<class name="Command" table="COMMAND">
+		<id name="id" column="ID">
+			<generator class="identity" />
+		</id>
+		<property name="name" column="NAME" length="255" not-null="true" />
+		<property name="value" column="VALUE" length="255" />
+		<property name="time" column="TIME" />
+		<many-to-one name="game" column="GAME_ID" cascade="all" lazy="false" />
+	</class>
+	<class name="Game" table="GAME">
+		<id name="id" column="ID">
+			<generator class="identity" />
+		</id>
+
+		<property name="lifelineGrace" column="LIFELINE_GRACE" />
+		<property name="lifelineChallenge" column="LIFELINE_CHALLENGE" />
+		<property name="lifelineDual" column="LIFELINE_DUAL" />
+		<property name="challengedAt" column="CHALLENGED_AT" />
+
+		<property name="startedAt" column="STARTED_AT" />
+		<property name="endedAt" column="ENDED_AT" />
+
+		<many-to-one name="currentQuestion" column="CURRENT_QUESTION" cascade="all" lazy="false" />
+		<property name="currentQuestionAnswered" column="CURRENT_QUESTION_ANSWERED" />
+		<property name="currentQuestionSequence" column="CURRENT_QUESTION_SEQUENCE" />
+	</class>
+</hibernate-mapping>
