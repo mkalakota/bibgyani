@@ -1,0 +1,85 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+
+	<display-name>Archetype Created Web Application</display-name>
+	<servlet>
+		<servlet-name>CommandServlet</servlet-name>
+		<display-name>CommandServlet</display-name>
+		<description>Sending and receiving commands</description>
+		<servlet-class>com.mk.fl.bibgyani.CommandServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ActionServlet</servlet-name>
+		<display-name>ActionServlet</display-name>
+		<description>Sends actions corresponding to roles</description>
+		<servlet-class>com.mk.fl.bibgyani.ActionServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>QuestionServlet</servlet-name>
+		<display-name>QuestionServlet</display-name>
+		<description></description>
+		<servlet-class>com.mk.fl.bibgyani.QuestionServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SetupServlet</servlet-name>
+		<display-name>SetupServlet</display-name>
+		<description></description>
+		<servlet-class>com.mk.fl.bibgyani.SetupServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CommandServlet</servlet-name>
+		<url-pattern>/command</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ActionServlet</servlet-name>
+		<url-pattern>/actions</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>QuestionServlet</servlet-name>
+		<url-pattern>/questions/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SetupServlet</servlet-name>
+		<url-pattern>/setup</url-pattern>
+	</servlet-mapping>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Wildcard means whole app requires authentication</web-resource-name>
+			<url-pattern>/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+			<http-method>PUT</http-method>
+			<http-method>DELETE</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>operator</role-name>
+			<role-name>host</role-name>
+			<role-name>participant</role-name>
+		</auth-constraint>
+
+		<user-data-constraint>
+			<!-- transport-guarantee can be CONFIDENTIAL, INTEGRAL, or NONE -->
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+
+	<security-role>
+		<role-name>operator</role-name>
+	</security-role>
+	<security-role>
+		<role-name>host</role-name>
+	</security-role>
+	<security-role>
+		<role-name>participant</role-name>
+	</security-role>
+
+</web-app>
+

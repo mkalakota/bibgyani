@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Bible Gnani</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<!-- <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" /> -->
+<link href="css/animate.css" rel="stylesheet" type="text/css" />
+<link href="css/app.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/lib/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/lib/angular.min.js"></script>
+<script type="text/javascript" src="js/lib/ng-flow-standalone.min.js"></script>
+<script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="js/lib/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="js/lib/angular.js"></script>
+<script type="text/javascript" src="js/lib/ng-flow-standalone.js"></script>
+<script type="text/javascript" src="js/lib/bootstrap.js"></script> -->
+</head>
+<body ng-app="NeBibApp">
+	<div id="main-container" class="main-container" ng-controller="NebibController">
+		<img class="bg-img" alt="background" src="css/images/bg_blue_7.jpg"
+			ng-if="background == true || background == undefined"> <img class="logo" alt="logo" src="css/images/logo_2.png">
+
+
+		<div id="pc-container" class="pc-container" ng-class="{'timer-hidden':currentQuestion.sequence > 10}">
+			<div class="timer-wrapper">
+				<div class="countdown">
+					<span>60</span>
+				</div>
+				<div class="extraAmount" ng-if="currentQuestion && currentQuestion.amountExtra">
+					<span>Rs.{{ currentQuestion.amountExtra }}</span>
+				</div>
+				<svg id="svg-timer" xmlns="http://www.w3.org/2000/svg" class="svg-timer">
+				<g id="svg-timer-group" fill="none"></g>
+				</svg>
+			</div>
+			<!-- <div class="pc-bar" ng-repeat="bar in [] | range:60">
+				<span class="pc-amount" ng-if="$index + 1 == currentQuestion.amountExtraAt">{{currentQuestion.amountExtra}}
+					at {{currentQuestion.amountExtraAt}}</span>
+			</div> -->
+		</div>
+		<div id="ll-container" class="ll-container ll-animate invisible">
+			<img class="lifelines-header" alt="life lines header" src="css/images/lifelines_header2.png">
+			<life-line action="action" question="currentQuestion" name="'grace'"
+				used="lifelines.grace || (currentQuestion && currentQuestion.sequence > 10)"></life-line>
+			<life-line action="action" question="currentQuestion" name="'challenge'" used="lifelines.challenge"></life-line>
+			<life-line action="action" question="currentQuestion" name="'dual'" used="lifelines.dual"></life-line>
+			<!-- <life-line action="action" question="currentQuestion" name="'tbd'" used="lifelines.tbd"></life-line> -->
+		</div>
+		<div id="qs-container" class="qs-container">
+			<question-set ng-if="currentQuestion" q="currentQuestion" a="action" custanim="custAnim" tel="true"></question-set>
+			<question-set ng-if="currentQuestion" q="currentQuestion" a="action" custanim="custAnim" tel="false"></question-set>
+		</div>
+		<div id="amt-container" class="amt-container">
+			<div class="score-amount" ng-repeat="amt in amountsGained">
+				<score-amt amount="amt" index="$index" question="currentQuestion"></score-amt>
+			</div>
+			<!-- <div class="score-total slide-left">
+				<img alt="rupee" class="rupee" src="css/images/rupee.png"> <span class="score-amount-total">{{
+					getTotalAmount() }}</span>
+			</div> -->
+		</div>
+		<div id="operator-actions" class="operator-actions">
+			<op-actions ng-if="action.showActions == true" action="action" question="currentQuestion"></op-actions>
+		</div>
+	</div>
+
+	<!-- Finish game modal -->
+	<div class="modal fade" id="finish-game-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Game finished</h4>
+				</div>
+				<div class="modal-body">
+					<p>Game is completed&hellip;</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Time out modal -->
+	<div class="modal fade" id="time-out-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Game over</h4>
+				</div>
+				<div class="modal-body">
+					<p>Couldn't finish in time&hellip;</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Dual Life line modal -->
+	<div class="modal fade" id="dual-life-line-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Select two options</h4>
+				</div>
+				<div class="modal-body">
+					<div class="checkbox">
+						<label> <input type="checkbox"> Option A
+						</label>
+					</div>
+					<div class="checkbox">
+						<label> <input type="checkbox"> Option B
+						</label>
+					</div>
+					<div class="checkbox">
+						<label> <input type="checkbox"> Option C
+						</label>
+					</div>
+					<div class="checkbox">
+						<label> <input type="checkbox"> Option D
+						</label>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" onclick="nebib.dualDialogDismiss()">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Audio -->
+	<audio src="audio/ding.mp3"></audio>
+
+	<!-- Angular JS Modules -->
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/core.js"></script>
+
+	<!-- Angular JS Controllers -->
+	<script type="text/javascript" src="js/controllers/NebibController.js"></script>
+
+	<!-- Angular JS Directives -->
+	<script type="text/javascript" src="js/directives/questionSet.js"></script>
+	<script type="text/javascript" src="js/directives/opActions.js"></script>
+	<script type="text/javascript" src="js/directives/scoreAmt.js"></script>
+	<script type="text/javascript" src="js/directives/lifeLine.js"></script>
+
+	<!-- Angular JS Services -->
+	<script type="text/javascript" src="js/services/questions.js"></script>
+	<script type="text/javascript" src="js/services/commands.js"></script>
+
+	<!-- App Specific Modules -->
+	<script type="text/javascript" src="js/receivers/CommandReceiver.js"></script>
+	<script type="text/javascript" src="js/timer.js"></script>
+
+</body>
+</html>

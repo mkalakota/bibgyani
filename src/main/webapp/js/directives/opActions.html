@@ -1,0 +1,13 @@
+<div class="upload-questions" flow-init="{target:'./questions', testChunks: false}" flow-files-submitted="$flow.upload()"
+	flow-file-success="fileUploadSuccess($message)" flow-file-error="fileUploadError($message)">
+	<button type="button" class="btn btn-default" flow-btn>Upload Questions</button>
+</div>
+<button type="button" class="btn btn-default" ng-click="sendCommand('new_game')">Start New Game</button>
+<button type="button" class="btn btn-default" ng-click="sendCommand('toggle_background')">Toggle Background</button>
+<button type="button" class="btn btn-default" ng-click="sendCommand('flip_question')">Flip Question</button>
+<button type="button" class="btn btn-default" ng-click="sendCommand('start_timer')">Start Timer</button>
+<button type="button" class="btn btn-default" ng-click="sendCommand('pause_timer')">Pause Timer</button>
+<button type="button" class="btn btn-default" ng-click="sendCommand('resume_timer')">Resume Timer</button>
+<button type="button" class="btn btn-default" ng-click="sendCommand('show_answer', isWithinAmountTime())">Show Answer</button>
+<button type="button" class="btn btn-default" ng-click="sendCommand('next_question', isWithinAmountTime())">Next Question</button>
+<button type="button" class="btn btn-default" ng-click="sendCommand('finish_game')">Finish Game</button>

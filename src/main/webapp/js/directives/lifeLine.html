@@ -1,0 +1,8 @@
+<div class="ll-wrapper" ng-click="sendCommand(name)">
+	<div class="ll-bg" ng-class="{'ll-bg-hvr':action.showActions && !used, 'll-bg-used':used}">
+		<div class="ll-c" ng-switch on="used">
+			<img ng-switch-when="true" class="lifeline-img" alt="lifeline" src="css/images/lifeline_{{name}}_used.png">
+			<img ng-switch-default class="lifeline-img" alt="lifeline" src="css/images/lifeline_{{name}}.png">
+		</div>
+	</div>
+</div>
