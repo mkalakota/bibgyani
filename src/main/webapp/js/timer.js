@@ -157,7 +157,7 @@ nebib.Timer.prototype.getRemainingTime = function() {
 
 nebib.Timer.prototype.indicateAt = function(iAt) {
 	this.indicatedTime = iAt > 0 ? iAt - 1 : 0;
-	this.reset();
+	// this.reset();
 	// $(".extraAmount").removeClass("extraAmountAppear extraAmountDisappear extraAmountAnswered");
 	// $(".countdown").removeClass("countdownAppear countdownDisappear");
 };

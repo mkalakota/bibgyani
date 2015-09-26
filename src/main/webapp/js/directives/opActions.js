@@ -21,6 +21,21 @@ app.directive("opActions", [ 'commands', function(commands) {
 					}
 				});
 			};
+			scope.showAnswer = function() {
+				var question, answer;
+				question = scope.question;
+				if (question) {
+					if (question.dual) {
+						answer = String.fromCharCode(97 + question.answer);
+						if (question.dual.indexOf(answer) === -1) {
+							scope.sendCommand("finish_game");
+							return;
+						}
+					}
+					scope.sendCommand("show_answer", scope.isWithinAmountTime());
+				}
+			};
+
 			scope.isWithinAmountTime = function() {
 				var iPassedTime;
 				if (scope.question && !scope.lifeline_used) {

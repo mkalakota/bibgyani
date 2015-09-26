@@ -30,18 +30,20 @@ public class GameTO implements Serializable {
 	}
 
 	public GameTO(Game game) {
-		id = game.getId();
+		if (null != game) {
+			id = game.getId();
 
-		lifelineGraceUsed = game.isLifelineGrace();
-		lifelineChallengeUsed = game.isLifelineChallenge();
-		lifelineDualUsed = game.isLifelineDual();
-		challengedAt = game.getChallengedAt();
+			lifelineGraceUsed = game.isLifelineGrace();
+			lifelineChallengeUsed = game.isLifelineChallenge();
+			lifelineDualUsed = game.isLifelineDual();
+			challengedAt = game.getChallengedAt();
 
-		currentQuestionAnswered = game.isCurrentQuestionAnswered();
-		currentQuestionSequence = game.getCurrentQuestionSequence();
-		Question question = game.getCurrentQuestion();
-		if (null != question) {
-			currentQuestionId = question.getId();
+			currentQuestionAnswered = game.isCurrentQuestionAnswered();
+			currentQuestionSequence = game.getCurrentQuestionSequence();
+			Question question = game.getCurrentQuestion();
+			if (null != question) {
+				currentQuestionId = question.getId();
+			}
 		}
 	}
 

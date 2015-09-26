@@ -74,7 +74,7 @@ nebib.commands.preprocess = function(aCommands, iStartIndex) {
 			score = scope.amountsGained[15 - sequence];
 			score.answered = true;
 			score.amount = nebib.core.amounts[sequence - 1];
-			if (value === "true" || value === true) {
+			if (sequence < 11 && (value === "true" || value === true)) {
 				score.amount += score.amount * .03;
 			}
 			break;
@@ -241,8 +241,13 @@ nebib.commands.show_answer = {
 					}
 					// drop amount
 					setTimeout(function() {
-						var daOffset = $(".drop-amount").offset();
 						var shOffset = $(".score-highlight").offset();
+						var daOffset;
+						if ($(".qs-container.q-flip").length) {
+							daOffset = $(".q-back .drop-amount").offset();
+						} else {
+							daOffset = $(".q-front .drop-amount").offset();
+						}
 						$(".drop-amount").css(
 								"transform",
 								"translate(" + (shOffset.left - daOffset.left + 95) + "px, " + (shOffset.top - daOffset.top + 10)
