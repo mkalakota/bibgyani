@@ -115,8 +115,10 @@ public class CommandServlet extends HttpServlet {
 				tx = session.beginTransaction();
 				String command_name = to.getName();
 				Date time = new Date();
+				boolean gameFinished = false;
 				if (CommandStore.FINISH_GAME.getName().equalsIgnoreCase(command_name)) {
 					finishGame(session, time);
+					gameFinished = true;
 				} else if (CommandStore.NEW_GAME.getName().equalsIgnoreCase(command_name)) {
 					finishGame(session, time);
 					newGame(session, time);
@@ -138,7 +140,9 @@ public class CommandServlet extends HttpServlet {
 				command.setName(command_name);
 				command.setTime(time);
 				command.setValue(to.getValue());
-				command.setGame(BibgyaniUtil.getRunningGame(session));
+				if (!gameFinished) {
+					command.setGame(BibgyaniUtil.getRunningGame(session));
+				}
 				session.save(command);
 				tx.commit();
 
@@ -192,14 +196,17 @@ public class CommandServlet extends HttpServlet {
 
 		int qId = -1;
 		Question question = game.getCurrentQuestion();
-		int nextLevel = Question.EASY;
+		int nextLevel;
+		if (game.getCurrentQuestionSequence() < 5) {
+			nextLevel = Question.EASY;
+		} else if (game.getCurrentQuestionSequence() < 10) {
+			nextLevel = Question.MEDIUM;
+		} else {
+			nextLevel = Question.DIFFICULT;
+		}
 		if (question != null) {
-			if (game.getCurrentQuestionSequence() == 5 || game.getCurrentQuestionSequence() == 10) {
-				nextLevel++;
-			}
 			qId = question.getId();
 		}
-		nextLevel = Math.min(nextLevel, Question.DIFFICULT);
 
 		Query query;
 		if (qId == -1) {
