@@ -18,8 +18,8 @@
 </head>
 <body ng-app="NeBibApp">
 	<div id="main-container" class="main-container" ng-controller="NebibController">
-		<img class="bg-img" alt="background" src="css/images/bg_blue_7.jpg"
-			ng-if="background == true || background == undefined"> <img class="logo" alt="logo" src="css/images/logo_2.png">
+		<img class="bg-img" alt="background" src="css/images/bg_blue.jpg"
+			ng-if="background == true || background == undefined"> <img class="logo" alt="logo" src="css/images/logo.png">
 
 
 		<div id="pc-container" class="pc-container" ng-class="{'timer-hidden':currentQuestion.sequence > 10}">
@@ -40,7 +40,7 @@
 			</div> -->
 		</div>
 		<div id="ll-container" class="ll-container ll-animate invisible">
-			<img class="lifelines-header" alt="life lines header" src="css/images/lifelines_header2.png">
+			<img class="lifelines-header" alt="life lines header" src="css/images/lifelines_header.png">
 			<life-line action="action" question="currentQuestion" name="'grace'"
 				used="lifelines.grace || (currentQuestion && currentQuestion.sequence > 10)"></life-line>
 			<life-line action="action" question="currentQuestion" name="'challenge'" used="lifelines.challenge"></life-line>
